@@ -104,10 +104,36 @@ EOF
   artifact-locker pull
 }
 
-backup_shell_files() {
-  for shell_file in "$HOME/.bashrc" "$HOME/.profile"; do
-    if [ -e "${shell_file}" ] && [ ! -L "${shell_file}" ]; then
-      mv "${shell_file}" "${shell_file}${backup_suffix}"
+backup_managed_paths() {
+  local path
+  local managed_paths=(
+    "$HOME/.bashrc"
+    "$HOME/.profile"
+    "$HOME/.zprofile"
+    "$HOME/.tmux.conf"
+    "$HOME/.vimrc"
+    "$HOME/.wezterm.lua"
+    "$HOME/.config/tmux/scripts"
+    "$HOME/.config/nvim"
+    "$HOME/.config/lf"
+    "$HOME/.config/neofetch"
+    "$HOME/.config/opindex"
+    "$HOME/.config/artifact-catalog"
+    "$HOME/.config/i3"
+    "$HOME/.config/i3status"
+    "$HOME/.config/rofi"
+    "$HOME/.config/starship.toml"
+    "$HOME/.config/wallpapers"
+  )
+
+  for path in "${managed_paths[@]}"; do
+    if [ -L "${path}" ]; then
+      rm -f "${path}"
+      continue
+    fi
+
+    if [ -e "${path}" ]; then
+      mv "${path}" "${path}${backup_suffix}"
     fi
   done
 }
@@ -174,7 +200,7 @@ export NIX_CONFIG="experimental-features = nix-command flakes"
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git i3-wm lightdm pipx python3-venv
 
-backup_shell_files
+backup_managed_paths
 disable_custom_tmux_config
 remove_legacy_picom
 run_home_manager
