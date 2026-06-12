@@ -198,7 +198,7 @@ load_nix
 export NIX_CONFIG="experimental-features = nix-command flakes"
 
 sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git i3-wm lightdm pipx python3-venv alacritty
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git i3-wm lightdm pipx python3-venv
 
 backup_managed_paths
 disable_custom_tmux_config

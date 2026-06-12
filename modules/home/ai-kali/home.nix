@@ -24,7 +24,7 @@
       VISUAL = "nvim";
       OSCP_TARGET_ROOT = oscpRoot;
       PAYLOADS_DIR = payloadRoot;
-      TERMINAL = "wezterm";
+      TERMINAL = "alacritty";
     };
 
     home.packages = with pkgs; [
