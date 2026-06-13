@@ -107,6 +107,16 @@ install_pipx_tool() {
   pipx install "$spec"
 }
 
+repair_new_target_install() {
+  local bin_dir="$HOME/.local/bin"
+  local helper_no_ext="${bin_dir}/_target-workspace-lib"
+  local helper_sh="${bin_dir}/_target-workspace-lib.sh"
+
+  if [ -f "${helper_no_ext}" ] && [ ! -e "${helper_sh}" ]; then
+    ln -s "${helper_no_ext}" "${helper_sh}"
+  fi
+}
+
 bootstrap_artifact_locker() {
   local artifact_dir="$HOME/.local/share/artifact-locker"
 
@@ -255,6 +265,7 @@ install_pipx_tool "updog" updog
 
 clone_or_update_repo "${pentest_automation_repo}" "${pentest_automation_dir}"
 PREFIX="$HOME/.local" "${pentest_automation_dir}/install.sh"
+repair_new_target_install
 
 bootstrap_artifact_locker
 
