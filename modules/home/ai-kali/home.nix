@@ -29,6 +29,7 @@
 
     home.packages = with pkgs; [
       oras
+      vscode
     ];
 
     home.activation.ensurePentestDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
