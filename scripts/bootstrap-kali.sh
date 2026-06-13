@@ -74,7 +74,7 @@ set_default_shell() {
   current_shell="$(getent passwd "$USER" | cut -d: -f7)"
 
   if [ -n "${bash_shell}" ] && [ "${current_shell}" != "${bash_shell}" ]; then
-    chsh -s "${bash_shell}"
+    sudo chsh -s "${bash_shell}" "$USER"
   fi
 }
 
