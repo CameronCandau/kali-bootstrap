@@ -16,6 +16,7 @@ ensure_base_packages() {
   sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ca-certificates \
     curl \
+    xfce4-terminal \
     git \
     i3-wm \
     lightdm \
