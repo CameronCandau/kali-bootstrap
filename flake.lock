@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781386525,
-        "narHash": "sha256-JXonhPQbww7Hzv+NFOOGgi8ZAqDjDHhg8/MyzfA/bbo=",
+        "lastModified": 1781388288,
+        "narHash": "sha256-rAKZRFg/c+Gy6+cPZ26tbDuIXiSS5hKPWgu0SUL/R3s=",
         "owner": "CameronCandau",
         "repo": "dotfiles",
-        "rev": "d2c34cb54b61bebd5cb0c07b676559d246da6e3a",
+        "rev": "aaeb48893976ff55bd443d50a065b48cb2314991",
         "type": "github"
       },
       "original": {
