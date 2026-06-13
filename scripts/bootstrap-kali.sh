@@ -11,6 +11,19 @@ artifact_locker_repository="${ARTIFACT_LOCKER_REPOSITORY:-public.ecr.aws/o7l3z5i
 payloads_dir="${PAYLOADS_DIR:-$HOME/tools/payloads}"
 backup_suffix=".pre-kali-bootstrap-$(date '+%Y%m%d-%H%M%S')"
 
+ensure_base_packages() {
+  sudo apt-get update
+  sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    ca-certificates \
+    curl \
+    git \
+    i3-wm \
+    lightdm \
+    pipx \
+    python3-venv \
+    xz-utils
+}
+
 install_nix() {
   if command -v nix >/dev/null 2>&1; then
     return 0
@@ -109,24 +122,39 @@ backup_managed_paths() {
   local managed_paths=(
     "$HOME/.bashrc"
     "$HOME/.profile"
+    "$HOME/.xsessionrc"
     "$HOME/.zprofile"
     "$HOME/.tmux.conf"
     "$HOME/.vimrc"
-    "$HOME/.wezterm.lua"
     "$HOME/.config/tmux/scripts"
     "$HOME/.config/nvim"
-    "$HOME/.config/lf"
-    "$HOME/.config/neofetch"
-    "$HOME/.config/opindex"
-    "$HOME/.config/artifact-catalog"
+    "$HOME/.config/yazi"
     "$HOME/.config/i3"
     "$HOME/.config/i3status"
     "$HOME/.config/rofi"
     "$HOME/.config/starship.toml"
     "$HOME/.config/wallpapers"
   )
+  local legacy_paths=(
+    "$HOME/.wezterm.lua"
+    "$HOME/.config/lf"
+    "$HOME/.config/neofetch"
+    "$HOME/.config/opindex"
+    "$HOME/.config/artifact-catalog"
+  )
 
   for path in "${managed_paths[@]}"; do
+    if [ -L "${path}" ]; then
+      rm -f "${path}"
+      continue
+    fi
+
+    if [ -e "${path}" ]; then
+      mv "${path}" "${path}${backup_suffix}"
+    fi
+  done
+
+  for path in "${legacy_paths[@]}"; do
     if [ -L "${path}" ]; then
       rm -f "${path}"
       continue
@@ -192,13 +220,11 @@ configure_display_manager() {
   sudo systemctl restart lightdm || true
 }
 
+ensure_base_packages
 install_nix
 load_nix
 
 export NIX_CONFIG="experimental-features = nix-command flakes"
-
-sudo apt-get update
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y git i3-wm lightdm pipx python3-venv
 
 backup_managed_paths
 disable_custom_tmux_config

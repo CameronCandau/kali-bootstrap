@@ -8,13 +8,13 @@ rebuilding manually on every new VM.
 
 Desktop ownership is split cleanly:
 
-- shared desktop config comes from the `dotfiles` flake
-- Kali-specific bootstrap/tooling stays here
+- host bootstrap and system service setup stay here
+- shared user shell/editor/desktop config comes from the `dotfiles` flake
 
 The bootstrap installs:
 
 - `i3` as the working session, with Xfce still available as fallback
-- shared desktop files and packages from `dotfiles`
+- shared shell/editor/tmux/X11/i3 files and packages from `dotfiles`
 - `Payload-Server` from PyPI with `pipx`
 - `Artifact-Locker` from PyPI with `pipx`
 - `Pentest-Automation` from GitHub via its `install.sh`
@@ -69,4 +69,7 @@ Defaults:
 - `artifact-locker` is installed from PyPI with `pipx`. If the installed PyPI
   version already has `artifact-locker bootstrap`, the script uses it. If not,
   the bootstrap falls back to the legacy `init + config.json + pull` flow.
+- Before Home Manager switches, the bootstrap now backs up the paths managed by
+  the current `dotfiles` modules and also moves a few legacy config paths out
+  of the way for migration safety.
 - The machine should finish with `lightdm` active and `greetd` removed.
