@@ -64,6 +64,14 @@
           }
         done
 
+        new_target_bin="$(command -v new-target)"
+        new_target_dir="$(dirname "$new_target_bin")"
+
+        if [ ! -f "${new_target_dir}/_target-workspace-lib.sh" ]; then
+          printf 'broken: new-target is missing %s\n' "${new_target_dir}/_target-workspace-lib.sh" >&2
+          exit 1
+        fi
+
         printf 'pentest-check: ok\n'
       '';
     };
