@@ -65,6 +65,18 @@ load_home_manager_session() {
   export PATH="$HOME/.nix-profile/bin:$HOME/.local/bin:$PATH"
 }
 
+set_default_shell() {
+  local bash_shell
+  local current_shell
+
+  bash_shell="$(command -v bash)"
+  current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+
+  if [ -n "${bash_shell}" ] && [ "${current_shell}" != "${bash_shell}" ]; then
+    chsh -s "${bash_shell}"
+  fi
+}
+
 clone_or_update_repo() {
   local repo_url="$1"
   local repo_dir="$2"
@@ -129,6 +141,7 @@ backup_managed_paths() {
     "$HOME/.config/tmux/scripts"
     "$HOME/.config/nvim"
     "$HOME/.config/yazi"
+    "$HOME/.config/xfce4/terminal"
     "$HOME/.config/i3"
     "$HOME/.config/i3status"
     "$HOME/.config/rofi"
@@ -226,6 +239,7 @@ load_nix
 
 export NIX_CONFIG="experimental-features = nix-command flakes"
 
+set_default_shell
 backup_managed_paths
 disable_custom_tmux_config
 remove_legacy_picom

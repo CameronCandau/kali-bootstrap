@@ -24,7 +24,7 @@
       VISUAL = "nvim";
       OSCP_TARGET_ROOT = oscpRoot;
       PAYLOADS_DIR = payloadRoot;
-      TERMINAL = "alacritty";
+      TERMINAL = "xfce4-terminal";
     };
 
     home.packages = with pkgs; [
