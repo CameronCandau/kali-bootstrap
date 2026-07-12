@@ -259,6 +259,7 @@ run_home_manager
 load_home_manager_session
 
 install_pipx_tool "${artifact_locker_spec}" artifact-locker
+install_pipx_tool "autorecon" autorecon
 install_pipx_tool "${payload_server_spec}" payload-server
 install_pipx_tool "penelope-shell-handler" penelope
 install_pipx_tool "updog" updog

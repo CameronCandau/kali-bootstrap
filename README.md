@@ -17,6 +17,7 @@ The bootstrap installs:
 - shared shell/editor/tmux/X11/i3 files and packages from `dotfiles`
 - `Payload-Server` from PyPI with `pipx`
 - `Artifact-Locker` from PyPI with `pipx`
+- `AutoRecon` from PyPI with `pipx`
 - `Pentest-Automation` from GitHub via its `install.sh`
 - `penelope-shell-handler` and `updog` with `pipx`
 - payload sync from `public.ecr.aws/o7l3z5i2/artifact-locker`

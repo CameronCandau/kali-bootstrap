@@ -50,6 +50,7 @@
 
         required=(
           artifact-locker
+          autorecon
           payload-server
           new-target
           scan
