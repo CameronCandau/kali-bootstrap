@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781495572,
-        "narHash": "sha256-FCjQyAGIxZGZzeFdFElIMCKkKXUXn8QsWuN3QZhX4Ws=",
+        "lastModified": 1784785689,
+        "narHash": "sha256-FobSfQrBgEIi/NhivnyRzE23Tcu29EdbRMj8yqzO3FQ=",
         "owner": "CameronCandau",
         "repo": "dotfiles",
-        "rev": "9ea0fe62ef0ea46f62139401d5fe41bc5c7e69f1",
+        "rev": "a968340338507b5a8a496234126712a93144212f",
         "type": "github"
       },
       "original": {
@@ -128,13 +128,30 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1784497964,
+        "narHash": "sha256-vlHUuqAcbcH2RKmHbPiuQzbv1pnzzavXnI62RD0bqCU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "241313f4e8e508cb9b13278c2b0fa25b9ca27163",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dotfiles": "dotfiles",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager_2",
         "import-tree": "import-tree",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
   },

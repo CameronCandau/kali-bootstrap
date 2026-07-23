@@ -2,13 +2,17 @@
 {
   flake.homeModules.kaliHome = { config, lib, pkgs, ... }:
   let
+    pkgsUnstable = import inputs.nixpkgs-unstable {
+      system = pkgs.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+    };
     homeDir = config.home.homeDirectory;
     oscpRoot = "${homeDir}/oscp";
     payloadRoot = "${homeDir}/tools/payloads";
-    artifactLockerRoot = "${homeDir}/.local/share/artifact-locker";
   in
   {
     imports = [
+      inputs.dotfiles.homeModules.artifactLocker
       inputs.dotfiles.homeModules.core
       inputs.dotfiles.homeModules.x11Userland
       inputs.dotfiles.homeModules.desktopI3
@@ -30,15 +34,13 @@
     home.packages = with pkgs; [
       oras
       vscode
+      pkgsUnstable.awscli2
     ];
 
     home.activation.ensurePentestDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
         "${oscpRoot}" \
-        "${payloadRoot}/linux" \
-        "${payloadRoot}/windows" \
-        "$HOME/logs" \
-        "${artifactLockerRoot}"
+        "$HOME/logs"
     '';
 
     home.file.".local/bin/pentest-check" = {
