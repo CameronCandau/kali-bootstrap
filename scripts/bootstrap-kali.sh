@@ -119,6 +119,9 @@ repair_new_target_install() {
 
 bootstrap_artifact_locker() {
   local artifact_dir="$HOME/.local/share/artifact-locker"
+  local user_group
+
+  user_group="$(id -gn)"
 
   if artifact-locker --help 2>&1 | rg -q 'bootstrap'; then
     artifact-locker bootstrap \
@@ -130,6 +133,11 @@ bootstrap_artifact_locker() {
   artifact-locker init
 
   mkdir -p "${artifact_dir}"
+
+  if [ ! -w "${artifact_dir}" ]; then
+    sudo chown -R "$USER":"${user_group}" "${artifact_dir}"
+  fi
+
   cat > "${artifact_dir}/config.json" <<EOF
 {
   "local_artifact_dir": "${payloads_dir}",
